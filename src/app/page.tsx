@@ -11,16 +11,28 @@ export default function Home() {
 
   return (
     <main>
-      {/* Toggle Button for all screen sizes */}
-      <div className='bg-gray-100 p-2 flex justify-between items-center'>
+      {/* Toggle Section */}
+      <div className='bg-background-muted dark:bg-popover text-muted-foreground py-3 px-4 flex justify-between items-center uppercase font-medium tracking-[2px]'>
+        {showPreview ? (
+          <p>Preview</p>
+        ) : (
+          <div className='flex-1 md:grid grid-cols-2'>
+            <p className='md:hidden'>Markdown</p>{' '}
+            {/* "Markdown" title for small screens */}
+            <p className='hidden md:block'>Markdown</p>{' '}
+            {/* "Markdown" title for medium and up screens */}
+            <p className='hidden md:block ml-4'>Preview</p>{' '}
+            {/* "Preview" title for medium and up screens */}
+          </div>
+        )}
         {showPreview ? (
           <EyeOffIcon
-            className='h-6 w-6 text-gray-700 cursor-pointer'
+            className='h-6 w-6 text-muted-foreground cursor-pointer'
             onClick={() => setShowPreview(false)}
           />
         ) : (
           <EyeIcon
-            className='h-6 w-6 text-gray-700 cursor-pointer'
+            className='h-6 w-6 text-muted-foreground cursor-pointer'
             onClick={() => setShowPreview(true)}
           />
         )}
