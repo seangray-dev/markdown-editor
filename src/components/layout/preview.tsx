@@ -2,7 +2,7 @@ import Markdown from 'markdown-to-jsx';
 
 export default function Preview({ markdown }: any) {
   return (
-    <section className='bg-blue-400 h-full prose'>
+    <section className='px-5 py-4'>
       <Markdown>{markdown}</Markdown>
     </section>
   );

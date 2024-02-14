@@ -7,10 +7,9 @@ export default function Editor({ markdown, setMarkdown }: any) {
   };
 
   return (
-    <section className='bg-background h-full'>
-      <h2>Editor</h2>
-      <textarea
-        className='w-full h-full'
+    <section className='h-full border-r'>
+      <Textarea
+        className='w-full h-full px-5 py-4 text-base focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none border-none'
         value={markdown}
         onChange={handleChange}
       />
