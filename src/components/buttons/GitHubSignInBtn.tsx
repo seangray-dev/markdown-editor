@@ -10,7 +10,6 @@ export default async function GitHubSignInBtn() {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
 
-    // Directly await the promise without try-catch
     const { error, data } = await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
