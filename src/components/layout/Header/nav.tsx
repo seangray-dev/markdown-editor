@@ -17,6 +17,7 @@ import { MenuIcon, PlusIcon } from 'lucide-react';
 import React, { useState } from 'react';
 import { ThemeToggle } from '../../ui/theme-toggle';
 import { DocumentBtn } from './document-button';
+import Profile from './profile';
 
 export default function Nav() {
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -67,7 +68,10 @@ export default function Nav() {
             </div>
           </ScrollArea>
           <SheetFooter className='self-start mt-4'>
-            <ThemeToggle />
+            <div className='flex flex-col gap-2 '>
+              <Profile />
+              <ThemeToggle />
+            </div>
           </SheetFooter>
         </SheetContent>
       </Sheet>
