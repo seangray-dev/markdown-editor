@@ -11,6 +11,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { createClient } from '@/utils/supabase/server';
+import { revalidatePath } from 'next/cache';
+import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
@@ -24,7 +26,8 @@ export default function Login({
 
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
-    const supabase = createClient();
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -35,7 +38,8 @@ export default function Login({
       return redirect('/login?message=Could not authenticate user');
     }
 
-    return redirect('/');
+    revalidatePath('/', 'layout');
+    redirect('/');
   };
 
   return (
