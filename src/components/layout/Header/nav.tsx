@@ -67,10 +67,10 @@ export default function Nav() {
               ))}
             </div>
           </ScrollArea>
-          <SheetFooter className='self-start mt-4'>
-            <div className='flex flex-col gap-2 '>
-              <Profile />
+          <SheetFooter className='self-start mt-4 w-full'>
+            <div className='flex flex-col gap-2 w-full'>
               <ThemeToggle />
+              <Profile />
             </div>
           </SheetFooter>
         </SheetContent>
