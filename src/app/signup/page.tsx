@@ -1,3 +1,5 @@
+import { AlertDestructive } from '@/components/alerts/AlertDestructive';
+import { AlertSuccess } from '@/components/alerts/AlertSuccess';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -10,17 +12,20 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { createClient } from '@/utils/supabase/server';
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default function SignUp({
   searchParams,
 }: {
-  searchParams: { message: string };
+  searchParams: {
+    success?: string;
+    error?: string;
+  };
 }) {
-  const isSuccess =
-    searchParams?.message === 'Check email to continue sign in process';
+  const successMessage = searchParams?.success;
+  const errorMessage = searchParams?.error;
   const signUp = async (formData: FormData) => {
     'use server';
 
@@ -31,15 +36,16 @@ export default function SignUp({
 
     if (password.length < 8) {
       return redirect(
-        '/signup?message=Password must be at least 8 characters long'
+        '/signup?error=Password must be at least 8 characters long'
       );
     }
 
     if (password !== confirmPassword) {
-      return redirect('/signup?message=Passwords do not match');
+      return redirect('/signup?error=Passwords do not match');
     }
-
-    const supabase = createClient();
+    
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
 
     const { error } = await supabase.auth.signUp({
       email,
@@ -50,10 +56,10 @@ export default function SignUp({
     });
 
     if (error) {
-      return redirect('/signup?message=Could not authenticate user');
+      return redirect('/signup?error=Could not authenticate user');
     }
 
-    return redirect('/signup?message=Check email to continue sign in process');
+    return redirect('/signup?success=Check email to continue sign in process');
   };
 
   return (
@@ -98,19 +104,13 @@ export default function SignUp({
               placeholder='••••••••'
               required
             />
+            {errorMessage && <AlertDestructive message={errorMessage} />}
+            {successMessage && <AlertSuccess message={successMessage} />}
             <Button
               formAction={signUp}
               className='border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2'>
               Sign Up
             </Button>
-            {searchParams?.message && (
-              <p
-                className={`mt-4 p-1 text-center text-white ${
-                  isSuccess ? 'bg-secondary' : 'bg-destructive'
-                }`}>
-                {searchParams.message}
-              </p>
-            )}
           </form>
         </CardContent>
         <CardFooter className='p-0'>
