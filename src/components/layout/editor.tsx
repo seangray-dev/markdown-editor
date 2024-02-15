@@ -9,7 +9,7 @@ const robotoMono = Roboto_Mono({
 });
 
 export default function Editor({ markdown, setMarkdown }: any) {
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMarkdown(e.target.value);
   };
 
