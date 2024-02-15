@@ -1,5 +1,6 @@
 'use client';
 
+import Header from '@/components/layout/Header/header';
 import Editor from '@/components/layout/editor';
 import Preview from '@/components/layout/preview';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
@@ -11,6 +12,7 @@ export default function Home() {
 
   return (
     <main>
+      <Header />
       {/* Toggle Section */}
       <div className='bg-background-muted dark:bg-popover text-muted-foreground py-3 px-4 flex justify-between items-center uppercase font-medium tracking-[2px]'>
         {showPreview ? (

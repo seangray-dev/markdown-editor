@@ -23,7 +23,6 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${roboto.className}`}>
         <ThemeProvider attribute='class' defaultTheme='system'>
-          <Header />
           {children}
         </ThemeProvider>
       </body>
