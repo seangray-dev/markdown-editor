@@ -53,3 +53,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+.custom-bullets ul {
+  list-style-type: none; /* Remove default bullets */
+}
+
+.custom-bullets ul li::before {
+  content: '•'; /* Custom bullet */
+  color: hsl(13, 75%, 58%); /* Bullet color */
+  display: inline-block;
+  width: 1em; /* Space between bullet and text */
+  margin-left: -1em; /* Align bullet with text start */
+}
