@@ -17,11 +17,11 @@ export default function Home() {
           <p>Preview</p>
         ) : (
           <div className='flex-1 md:grid grid-cols-2'>
-            <p className='md:hidden'>Markdown</p>{' '}
+            <p className='md:hidden'>Markdown</p>
             {/* "Markdown" title for small screens */}
-            <p className='hidden md:block'>Markdown</p>{' '}
+            <p className='hidden md:block'>Markdown</p>
             {/* "Markdown" title for medium and up screens */}
-            <p className='hidden md:block ml-4'>Preview</p>{' '}
+            <p className='hidden md:block ml-4'>Preview</p>
             {/* "Preview" title for medium and up screens */}
           </div>
         )}
@@ -53,7 +53,10 @@ export default function Home() {
           {!showPreview && (
             <Editor markdown={markdown} setMarkdown={setMarkdown} />
           )}
-          <div className={`${showPreview ? 'md:col-span-2' : 'md:col-span-1'}`}>
+          <div
+            className={`${
+              showPreview ? 'md:col-span-2 mx-auto' : 'md:col-span-1'
+            }`}>
             <Preview markdown={markdown} />
           </div>
         </div>
