@@ -5,7 +5,7 @@ import SaveBtn from './save-button';
 
 export default function Header() {
   return (
-    <header className='flex items-center border justify-between bg-muted'>
+    <header className='flex items-center justify-between bg-muted'>
       <div className='flex items-center gap-8'>
         <div className='flex gap-2 h-[56px] w-[56px] md:h-[72px] md:w-[72px]'>
           <Nav />
