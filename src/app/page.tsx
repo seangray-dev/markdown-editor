@@ -3,12 +3,23 @@
 import Header from '@/components/layout/Header/header';
 import Editor from '@/components/layout/editor';
 import Preview from '@/components/layout/preview';
+import { supabase } from '@/utils/supabase/client';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [showPreview, setShowPreview] = useState(false);
   const [markdown, setMarkdown] = useState('');
+  const router = useRouter();
+
+  useEffect(() => {
+    const user = supabase.auth.getUser();
+
+    if (!user) {
+      router.push('/login');
+    }
+  }, [router]);
 
   return (
     <main>
