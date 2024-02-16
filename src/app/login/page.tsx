@@ -47,13 +47,11 @@ export default function Login({
     <div className='min-h-screen flex items-center justify-center'>
       <Card className='flex-1 flex flex-col p-8 max-w-md justify-center'>
         <CardHeader className='p-0 mb-4'>
-          <CardTitle>
-            <h1 className='text-3xl font-bold'>Login</h1>
-          </CardTitle>
+          <CardTitle className='text-3xl font-bold'>Login</CardTitle>
+          <CardDescription className='mb-4'>
+            Add your details below to get back into the app
+          </CardDescription>
         </CardHeader>
-        <CardDescription className='mb-4'>
-          <p>Add your details below to get back into the app</p>
-        </CardDescription>
         <CardContent className='p-0'>
           <form
             className='animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground'
@@ -86,15 +84,13 @@ export default function Login({
           </form>
           <GitHubSignInBtn />
         </CardContent>
-        <CardFooter className='p-0'>
-          <div className='flex gap-1 mt-4 justify-center mx-auto'>
-            <p>Don't have an account?</p>
-            <Link
-              className='hover:underline hover:text-primary duration-75 transition-all'
-              href='/signup'>
-              Sign Up
-            </Link>
-          </div>
+        <CardFooter className='p-0 mt-4 mx-auto'>
+          <span className='mr-1'>Don't have an account?</span>
+          <Link
+            className='hover:underline hover:text-primary duration-75 transition-all'
+            href='/signup'>
+            Sign Up
+          </Link>
         </CardFooter>
       </Card>
     </div>
