@@ -1,5 +1,6 @@
 import { AlertDestructive } from '@/components/alerts/AlertDestructive';
 import { AlertSuccess } from '@/components/alerts/AlertSuccess';
+import GitHubSignInBtn from '@/components/buttons/GitHubSignInBtn';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -43,7 +44,7 @@ export default function SignUp({
     if (password !== confirmPassword) {
       return redirect('/signup?error=Passwords do not match');
     }
-    
+
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
 
@@ -112,6 +113,7 @@ export default function SignUp({
               Sign Up
             </Button>
           </form>
+          <GitHubSignInBtn />
         </CardContent>
         <CardFooter className='p-0'>
           <div className='flex gap-1 mt-4 justify-center mx-auto'>
