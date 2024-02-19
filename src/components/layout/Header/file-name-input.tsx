@@ -2,7 +2,7 @@
 
 import { Input } from '@/components/ui/input';
 import { FileIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface FileNameInputProps {
   documentName?: string;
@@ -14,6 +14,10 @@ export default function FileNameInput({
   onSave,
 }: FileNameInputProps) {
   const [name, setName] = useState(documentName || '');
+
+  useEffect(() => {
+    setName(documentName || '');
+  }, [documentName]);
 
   return (
     <div className='flex items-center gap-4'>
@@ -27,11 +31,6 @@ export default function FileNameInput({
           onChange={(e) => setName(e.target.value)}
           placeholder='welcome.md'
           className='text-white rounded-none m-0 p-0 h-full bg-transparent border-b border-transparent focus-visible:ring-0 focus-visible:ring-offset-0 focus:border-b-2 focus:border-b-white hover:border-b-2 hover:border-b-white transition-all duration-75'
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              onSave(name);
-            }
-          }}
         />
       </div>
     </div>
