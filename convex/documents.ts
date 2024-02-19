@@ -15,7 +15,7 @@ export const createDocument = mutation({
 
     await ctx.db.insert('documents', {
       title: args.title,
-      content: args.content,
+      content: args.content || '',
       userId: user.subject,
       lastModified: Date.now(),
     });
@@ -34,5 +34,30 @@ export const getDocumentsForUser = query({
     );
 
     return filteredDocuments;
+  },
+});
+
+export const saveDocument = mutation({
+  args: {
+    id: v.id('documents'),
+    title: v.optional(v.string()),
+    content: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const { id, title, content } = args;
+
+    await ctx.db.patch(id, {
+      title: title,
+      content: content,
+      lastModified: Date.now(),
+    });
+  },
+});
+
+export const getDocumentById = query({
+  args: { id: v.id('documents') },
+  handler: async (ctx, args) => {
+    const document = await ctx.db.get(args.id);
+    return document;
   },
 });

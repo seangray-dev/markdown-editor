@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { SheetClose } from '@/components/ui/sheet';
 import { formatRelative, subDays } from 'date-fns';
 import { FileIcon } from 'lucide-react';
+import Link from 'next/link';
 
 export const DocumentBtn = ({ document }: { document: any }) => {
   const formattedDate = formatRelative(
@@ -14,17 +15,19 @@ export const DocumentBtn = ({ document }: { document: any }) => {
   return (
     <div key={document._id}>
       <SheetClose>
-        <Button
-          variant={'ghost'}
-          className='flex gap-4 items-center justify-start w-full hover:bg-transparent group'>
-          <FileIcon className='text-white' size={22} />
-          <div className='flex flex-col gap-1 text-muted-foreground'>
-            <span className='text-left capitalize'>{formattedDate}</span>
-            <span className='text-white group-hover:text-primary duration-150 transition-all'>
-              {document.title}
-            </span>
-          </div>
-        </Button>
+        <Link href={`/editor/${document._id}`}>
+          <Button
+            variant={'ghost'}
+            className='flex gap-4 items-center justify-start w-full hover:bg-transparent group'>
+            <FileIcon className='text-white' size={22} />
+            <div className='flex flex-col gap-1 text-muted-foreground'>
+              <span className='text-left capitalize'>{formattedDate}</span>
+              <span className='text-white group-hover:text-primary duration-150 transition-all'>
+                {document.title}
+              </span>
+            </div>
+          </Button>
+        </Link>
       </SheetClose>
     </div>
   );
