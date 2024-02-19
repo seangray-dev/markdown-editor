@@ -1,8 +1,7 @@
-import Header from '@/components/layout/Header/header';
-import { ThemeProvider } from '@/components/ui/theme-provider';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
+import Providers from './providers';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -22,9 +21,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${roboto.className}`}>
-        <ThemeProvider attribute='class' defaultTheme='system'>
-          {children}
-        </ThemeProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import AddNewDocBtn from '@/components/buttons/AddNewDocBtn';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Sheet,
@@ -12,27 +12,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { Document } from '@/lib/constants';
-import { MenuIcon, PlusIcon } from 'lucide-react';
-import React, { useState } from 'react';
+import { useQuery } from 'convex/react';
+import { MenuIcon } from 'lucide-react';
+import { Suspense } from 'react';
+import { api } from '../../../../convex/_generated/api';
 import { ThemeToggle } from '../../ui/theme-toggle';
 import { DocumentBtn } from './document-button';
 import Profile from './profile';
 
 export default function Nav() {
-  const [documents, setDocuments] = useState<Document[]>([]);
-
-  const addNewDocument = () => {
-    const newDocument = {
-      name: 'untitled-document.md',
-      date: new Date().toLocaleDateString('en-US', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-      }),
-    };
-    setDocuments([...documents, newDocument]);
-  };
+  const documents = useQuery(api.documents.getDocumentsForUser);
 
   return (
     <nav>
@@ -52,19 +41,15 @@ export default function Nav() {
             </SheetDescription>
           </SheetHeader>
           <SheetClose asChild>
-            <Button
-              type='submit'
-              className='flex gap-1 items-center w-full mb-6'
-              onClick={addNewDocument}>
-              <PlusIcon size={18} />
-              <span>New Document</span>
-            </Button>
+            <AddNewDocBtn />
           </SheetClose>
           <ScrollArea className='flex-grow overflow-auto'>
             <div className='flex flex-col gap-7'>
-              {documents.map((doc, index) => (
-                <DocumentBtn key={index} name={doc.name} date={doc.date} />
-              ))}
+              <Suspense fallback={<div>Loading...</div>}>
+                {documents?.map((doc) => {
+                  return <DocumentBtn key={doc._id} document={doc} />;
+                })}
+              </Suspense>
             </div>
           </ScrollArea>
           <SheetFooter className='self-start mt-4 w-full'>

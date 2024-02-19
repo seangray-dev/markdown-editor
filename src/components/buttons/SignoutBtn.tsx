@@ -1,24 +1,33 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { supabase } from '@/utils/supabase/client';
-import { LogOutIcon } from 'lucide-react';
-import { redirect } from 'next/navigation';
+import { SignInButton, SignOutButton, useSession } from '@clerk/nextjs';
+import { LogInIcon, LogOutIcon } from 'lucide-react';
+import { Button } from '../ui/button';
 
 export default function SignoutBtn() {
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    redirect('/login');
-  };
+  const { isSignedIn } = useSession();
 
   return (
-    <form className='w-full text-white'>
-      <Button
-        className='w-full flex gap-2 items-center'
-        formAction={handleSignOut}>
-        <LogOutIcon size={18} />
-        Signout
-      </Button>
-    </form>
+    <Button asChild className='p-0 h-full w-full'>
+      {isSignedIn ? (
+        <div className='h-full'>
+          <SignOutButton>
+            <div className='w-full justify-center cursor-pointer flex gap-2 h-full py-2 rounded-lg'>
+              <LogOutIcon size={18} />
+              <span>Logout</span>
+            </div>
+          </SignOutButton>
+        </div>
+      ) : (
+        <div className='h-full'>
+          <SignInButton>
+            <div className='w-full justify-center border cursor-pointer flex gap-2 h-full py-2 '>
+              <LogInIcon size={18} />
+              <span>Login</span>
+            </div>
+          </SignInButton>
+        </div>
+      )}
+    </Button>
   );
 }
